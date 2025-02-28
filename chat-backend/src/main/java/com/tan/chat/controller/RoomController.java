@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/api/room")
 public class RoomController {
 
     private RoomRepository roomRepository;
 
-    @PostMapping("/api/room/create")
-    public ResponseEntity<?> createRoom(@RequestBody Room room){
+    @PostMapping("/create")
+    public ResponseEntity<?> createRoom(@RequestBody Room room) {
         try {
             if (roomRepository.findByRoomId(room.getRoomId()) != null) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Room already exists!");
@@ -27,7 +28,7 @@ public class RoomController {
 
     }
 
-    @GetMapping("/api/room/{roomId}")
+    @GetMapping("/{roomId}")
     public ResponseEntity<?> joinRoom(@PathVariable String roomId) {
         try {
             Room room = roomRepository.findByRoomId(roomId);
